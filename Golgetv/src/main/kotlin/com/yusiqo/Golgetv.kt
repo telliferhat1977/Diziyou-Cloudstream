@@ -10,8 +10,8 @@ import com.lagradost.cloudstream3.utils.AppUtils.toJson
 import java.io.InputStream
  
 class Golgetv : MainAPI() {
-    override var mainUrl              = "https://bots.yusiqo.com/iptv/golge.php"
-    override var name                 = "Gölge Tv"
+    override var mainUrl              = "https://raw.githubusercontent.com/yusiqo/iptv-listem/main/hepsi.m3u"
+    override var name                 = "Lord Tv"
     override val hasMainPage          = true
     override var lang                 = "tr"
     override val hasQuickSearch       = true
