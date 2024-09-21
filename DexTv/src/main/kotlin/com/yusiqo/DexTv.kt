@@ -78,7 +78,7 @@ class DexTv : MainAPI() {
 
     override suspend fun search(query: String): List<SearchResponse> {
         val home    = app.get("${mainUrl}/api/search/${query}/4F5A9C3D9A86FA54EACEDDD635185/c3c5bd17-e37b-4b94-a944-8a3688a30452/")
-        val veriler = AppUtils.tryParseJson<RecSearch>(home.text)
+        val veriler = AppUtils.tryParseJson<DexSearch>(home.text)
 
         val sonuclar = mutableListOf<SearchResponse>()
 
