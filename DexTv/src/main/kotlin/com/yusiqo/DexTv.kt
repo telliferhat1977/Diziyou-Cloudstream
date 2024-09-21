@@ -38,9 +38,9 @@ data class CustomTag(
 )
 
 
-data class RecSearch(
-    @JsonProperty("channels") val channels:List<RecItem>? = emptyList(),
-    @JsonProperty("posters")  val posters:List<RecItem>?  = emptyList(),
+data class DexSearch(
+    @JsonProperty("channels") val channels:List<DexItem>? = emptyList(),
+    @JsonProperty("posters")  val posters:List<DexItem>?  = emptyList(),
 )
 class DexTv : MainAPI() {
     override var mainUrl              = "https://uydupanel.xyz"
@@ -67,7 +67,7 @@ class DexTv : MainAPI() {
         val url  = request.data.replace("SAYFA", "${page}")
         val home = app.get(url)
 
-        val movies = AppUtils.tryParseJson<List<RecItem>>(home.text)!!.mapNotNull { item ->
+        val movies = AppUtils.tryParseJson<List<DexItem>>(home.text)!!.mapNotNull { item ->
             val toDict = jacksonObjectMapper().writeValueAsString(item)
 
             newMovieSearchResponse(item.title, "${toDict}", TvType.Movie) { this.posterUrl = item.image }
@@ -100,7 +100,7 @@ class DexTv : MainAPI() {
     override suspend fun quickSearch(query: String): List<SearchResponse> = search(query)
 
     override suspend fun load(url: String): LoadResponse? {
-        val veri = AppUtils.tryParseJson<RecItem>(url) ?: return null
+        val veri = AppUtils.tryParseJson<DexItem>(url) ?: return null
 
         return newMovieLoadResponse(veri.title, url, TvType.Movie, url) {
             this.posterUrl = veri.image
@@ -112,7 +112,7 @@ class DexTv : MainAPI() {
     }
 
     override suspend fun loadLinks(data: String, isCasting: Boolean, subtitleCallback: (SubtitleFile) -> Unit, callback: (ExtractorLink) -> Unit): Boolean {
-        val veri = AppUtils.tryParseJson<RecItem>(data) ?: return false
+        val veri = AppUtils.tryParseJson<DexItem>(data) ?: return false
 
         veri.sources.forEach { source ->
             callback.invoke(
